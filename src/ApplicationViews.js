@@ -6,7 +6,7 @@ import Contact from "./components/pages/Contact/Contact";
 import Dashboard from "./components/pages/Dashboard/Dashboard";
 import Landing from "./components/pages/Landing/Landing";
 import Login from "./components/pages/Login/Login";
-import SignUp from "./components/pages/SignUp/SignUp";
+import SignUp from "./components/pages/SignUp";
 
 const ApplicationViews = () => {
   return (
