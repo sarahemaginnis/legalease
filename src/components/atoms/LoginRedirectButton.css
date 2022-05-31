@@ -1,0 +1,13 @@
+.btn__btn-primary {
+    background-color: #d9a774;
+    border-radius: 4px;
+    border: none;
+    color: black;
+    padding: 10px 24px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.btn__btn-primary:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

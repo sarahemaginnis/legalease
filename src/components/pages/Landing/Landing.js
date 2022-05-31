@@ -1,6 +1,7 @@
 import React from "react";
 import landingCoffee from "./landingCoffee.png";
 import { Container, Row, Col } from "react-bootstrap";
+import LoginRedirectButton from "../../atoms/LoginRedirectButton";
 import "./Landing.css";
 
 const Landing = () => {
@@ -17,7 +18,7 @@ const Landing = () => {
               The best way to save, annotate, and organize your case briefs and
               class notes for your law school outlines.
             </p>
-            <button>Login</button>
+            <LoginRedirectButton />
           </Col>
           <Col xs={6}>
             <img
