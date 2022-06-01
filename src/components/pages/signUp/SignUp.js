@@ -11,7 +11,7 @@ const SignUp = (props) => {
   const history = useHistory();
 
   const existingUserCheck = () => {
-    return fetch(`http:://localhost:8088/users?email=${user.email}`)
+    return fetch(`http://localhost:8088/users?email=${user.email}`)
       .then((res) => res.json())
       .then((user) => !!user.length);
   };
@@ -30,7 +30,7 @@ const SignUp = (props) => {
           .then((res) => res.json())
           .then((createdUser) => {
             if (createdUser.hasOwnProperty("id")) {
-              localStorage.setItem("legalease_customer", createdUser.id);
+              localStorage.setItem("legalease_user", createdUser.id);
               history.push("/");
             }
           });
