@@ -1,12 +1,12 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Account from "./components/pages/Account/Account";
-import Brief from "./components/pages/Brief/Brief";
-import Contact from "./components/pages/Contact/Contact";
-import Dashboard from "./components/pages/Dashboard/Dashboard";
-import Landing from "./components/pages/Landing/Landing";
-import Login from "./components/pages/Login/Login";
-import SignUp from "./components/pages/SignUp";
+import Account from "./components/pages/account/Account";
+import Brief from "./components/pages/brief/Brief";
+import Contact from "./components/pages/contact/Contact";
+import Dashboard from "./components/pages/dashboard/Dashboard";
+import Landing from "./components/pages/landing/Landing";
+import Login from "./components/pages/login/Login";
+import SignUp from "./components/pages/signUp/SignUp";
 
 const ApplicationViews = () => {
   return (
