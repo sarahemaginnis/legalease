@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import NewBriefForm from "./components/organisms/brief/BriefForm";
 import Account from "./components/pages/account/Account";
 import Brief from "./components/pages/brief/Brief";
 import Contact from "./components/pages/contact/Contact";
@@ -25,6 +26,9 @@ const ApplicationViews = () => {
       </Route>
       <Route path="/brief">
         <Brief />
+      </Route>
+      <Route path="/brief/create">
+        <NewBriefForm />
       </Route>
       <Route path="/account">
         <Account />
