@@ -1,7 +1,7 @@
 import React from "react";
 import landingCoffee from "./landingCoffee.png";
 import { Container, Row, Col } from "react-bootstrap";
-import LoginRedirectButton from "../../atoms/LoginRedirectButton";
+import LoginRedirectButton from "../../atoms/buttonComponent/LoginRedirectButton";
 import "./Landing.css";
 
 const Landing = () => {
