@@ -1,0 +1,13 @@
+.card__dashboard-body {
+    background-color: #f5efeb;
+}
+
+.card__dashboard-main {
+    border: #000000;
+    border-width: '50em';
+    text-align: center;
+}
+
+.card__dashboard-text {
+    text-align: left;
+}
