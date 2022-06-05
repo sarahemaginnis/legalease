@@ -11,7 +11,7 @@ import { Container, Row, Col } from "react-bootstrap";
 const NewBriefForm = () => {
   const [brief, updateBrief] = useState({
     //update with default fields
-  });
+  }); //do I still need this?
 
   const [partyARole, updatePartyARole] = useState(1);
   const [partyBRole, updatePartyBRole] = useState(1);
