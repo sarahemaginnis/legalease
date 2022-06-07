@@ -5,14 +5,24 @@ import "./Dashboard.css";
 
 const Dashboard = () => {
   const [briefs, syncBriefs] = useState([]); //State variable for array of briefs
+  const [subjects, syncSubjects] = useState([]); //State variable for array of subjects
   const history = useHistory();
+  const user = parseInt(localStorage.getItem("legalease_user"));
 
   //Fetch all briefs
   useEffect(() => {
-    fetch(`http://localhost:8088/briefs`) //need to add an expander to pull in "subjects"
+    fetch(`http://localhost:8088/briefs?_expand=class`)
       .then((res) => res.json())
       .then((data) => {
-        syncBriefs(data);
+        syncBriefs(data.filter((brief) => brief.creatorId === user));
+      });
+  }, [user]);
+
+  useEffect(() => {
+    fetch(`http://localhost:8088/subjects`)
+      .then((res) => res.json())
+      .then((data) => {
+        syncSubjects(data);
       });
   }, []);
   //need to map through user's briefs and then pass in props: cardTitle, cardSubtitle, cardTextIssue, cardTextHolding
@@ -32,12 +42,17 @@ const Dashboard = () => {
             </Card>
           </Col>
           {briefs.map((brief) => {
+            const subjectName = subjects.find((subject) => {
+              return subject.id === brief.class.subjectId;
+            });
             return (
-              <Col>
+              <Col key={`brief__${brief.id}`}>
                 <Card className="card__dashboard-main">
                   <Card.Body className="card__dashboard-body">
                     <Card.Title>{brief.name}</Card.Title>
-                    <Card.Subtitle>{brief.class}</Card.Subtitle>
+                    <Card.Subtitle>
+                      {subjectName ? subjectName.name : ""}
+                    </Card.Subtitle>
                     <Card.Text className="card__dashboard-text">
                       {brief.issuesLaw}
                     </Card.Text>

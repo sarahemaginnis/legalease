@@ -8,7 +8,7 @@ const InputDate = ({ label, onChange }) => {
         <input
           type="date"
           className="form-control"
-          onChange={(event) => onChange(parseInt(event.target.value))}
+          onChange={(event) => onChange(event.target.value)}
         />
       </div>
     </fieldset>

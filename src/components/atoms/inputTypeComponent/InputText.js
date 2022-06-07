@@ -9,7 +9,7 @@ const InputText = ({ label, onChange, placeholder }) => {
           type="text"
           className="form-control"
           placeholder={placeholder}
-          onChange={(event) => onChange(parseInt(event.target.value))}
+          onChange={(event) => onChange(event.target.value)}
         />
       </div>
     </fieldset>
