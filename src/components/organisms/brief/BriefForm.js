@@ -69,7 +69,7 @@ const NewBriefForm = () => {
     event.preventDefault();
     const newBrief = {
       creatorId: parseInt(localStorage.getItem("legalease_user")),
-      class: subjectName,
+      classId: subjectName,
       casebook: className,
       pageNumbers: pageNumbers,
       name: briefName,
