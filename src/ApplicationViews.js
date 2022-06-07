@@ -24,7 +24,7 @@ const ApplicationViews = () => {
       <Route path="/dashboard">
         <Dashboard />
       </Route>
-      <Route path="/brief">
+      <Route exact path="/brief/:briefId(\d+)">
         <Brief />
       </Route>
       <Route path="/brief/create">
