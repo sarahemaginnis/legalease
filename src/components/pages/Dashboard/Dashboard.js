@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, Container, Row, Col, CardGroup } from "react-bootstrap";
 import "./Dashboard.css";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [briefs, syncBriefs] = useState([]); //State variable for array of briefs
@@ -45,9 +46,10 @@ const Dashboard = () => {
             const subjectName = subjects.find((subject) => {
               return subject.id === brief.class.subjectId;
             });
+            const onClick = () => { history.push(`/brief/${brief.id}`)}
             return (
               <Col key={`brief__${brief.id}`}>
-                <Card className="card__dashboard-main">
+                <Card className="card__dashboard-main" onClick={onClick} style={{ cursor: "pointer" }}>
                   <Card.Body className="card__dashboard-body">
                     <Card.Title>{brief.name}</Card.Title>
                     <Card.Subtitle>
