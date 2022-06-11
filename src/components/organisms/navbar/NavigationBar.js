@@ -10,8 +10,10 @@ import {
 } from "react-bootstrap";
 import "./NavigationBar.css";
 import logo from "./logo.png"
+import { useHistory } from "react-router-dom";
 
 const NavigationBar = () => {
+  const history = useHistory();
   return (
     <Navbar>
       <Container>
@@ -38,7 +40,8 @@ const NavigationBar = () => {
               <NavDropdown.Item
                 href="#"
                 onClick={() => {
-                  localStorage.removeItem("legalease_user");
+                  localStorage.removeItem("legalease_user") 
+                  history.push("/");
                 }}
               >
                 Logout
