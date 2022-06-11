@@ -103,11 +103,11 @@ const Brief = () => {
       <h3>{brief.partyOneName ? "Parties:" : ""}</h3>
       <Container>
         <Row>
-          <Col>{brief.partyOneRole ? partyOneRoleName.party : ""}</Col>
+          <Col>{partyOneRoleName ? partyOneRoleName.party : ""}</Col>
           <Col>{brief.partyOneName ? brief.partyOneName : ""}</Col>
         </Row>
         <Row>
-          <Col>{brief.partyTwoRole ? partyTwoRoleName.party : ""}</Col>
+          <Col>{partyTwoRoleName ? partyTwoRoleName.party : ""}</Col>
           <Col>{brief.partyTwoName ? brief.partyTwoName : ""}</Col>
         </Row>
       </Container>

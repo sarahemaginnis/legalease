@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Card, Container, Row, Col, CardGroup } from "react-bootstrap";
+import { Card, Container, Row, Col, button, CardGroup } from "react-bootstrap";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
 
@@ -11,11 +11,11 @@ const Dashboard = () => {
   const user = parseInt(localStorage.getItem("legalease_user"));
 
   //Fetch all briefs
-  useEffect(() => {
+  useEffect(() => { //need to update useEffect to get all briefs after deleting and rendering teh new state
     fetch(`http://localhost:8088/briefs?_expand=class`)
       .then((res) => res.json())
       .then((data) => {
-        syncBriefs(data.filter((brief) => brief.creatorId === user));
+        syncBriefs(data.filter((brief) => brief.creatorId === user)); //filter on the request using this: http://localhost:8088/briefs?_expand=class&creatorId=1
       });
   }, [user]);
 
@@ -27,6 +27,20 @@ const Dashboard = () => {
       });
   }, []);
   //need to map through user's briefs and then pass in props: cardTitle, cardSubtitle, cardTextIssue, cardTextHolding
+
+  const deleteBrief = (e, id) => {
+      e.stopPropagation()
+      fetch(`http://localhost:8088/briefs/${id}`, {
+          method: "DELETE"
+      })
+      .then(() => {
+        return fetch(`http://localhost:8088/briefs?_expand=class`)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+          syncBriefs(data);
+      })
+  }
 
   return (
     <div>
@@ -64,7 +78,7 @@ const Dashboard = () => {
                   </Card.Body>
                   <Card.Footer>
                     <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Card Link</Card.Link>
+                    <button onClick={(e) => {deleteBrief(e, brief.id)}}>Delete</button>
                   </Card.Footer>
                 </Card>
               </Col>
