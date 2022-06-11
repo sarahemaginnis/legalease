@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputText = ({ label, onChange, placeholder }) => {
+const InputText = ({ label, onChange, placeholder, value }) => {
   return (
     <fieldset>
       <div className="form-group">
@@ -10,6 +10,7 @@ const InputText = ({ label, onChange, placeholder }) => {
           className="form-control"
           placeholder={placeholder}
           onChange={(event) => onChange(event.target.value)}
+          value={value}
         />
       </div>
     </fieldset>

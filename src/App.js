@@ -8,14 +8,17 @@ import Landing from "./components/pages/landing/Landing";
 import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
 
-const App = () => (
+const App = () => { 
+  const userId = localStorage.getItem("legalease_user")
+  
+  return (
   <>
     <Route
       render={() => {
-        if (localStorage.getItem("legalease_user")) {
+        if (userId) {
           return (
             <>
-              <NavigationBar />
+              <NavigationBar userId = {userId} />
               <ApplicationViews />
               <Footer />
             </>
@@ -37,6 +40,6 @@ const App = () => (
       <SignUp />
     </Route>
   </>
-)
+)}
 
 export default App;
