@@ -1,6 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import NewBriefForm from "./components/organisms/brief/BriefForm";
+import About from "./components/pages/about/About";
 import Account from "./components/pages/account/Account";
 import Brief from "./components/pages/brief/Brief";
 import Contact from "./components/pages/contact/Contact";
@@ -35,6 +36,9 @@ const ApplicationViews = () => {
       </Route>
       <Route path="/contact">
         <Contact />
+      </Route>
+      <Route path="/about">
+        <About />
       </Route>
     </div>
   );

@@ -1,0 +1,11 @@
+p.about {
+    text-align: justify;
+}
+
+h2.about {
+    text-align: center;
+}
+
+.card__about {
+    background-color: #ae7262;
+}
