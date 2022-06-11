@@ -30,7 +30,7 @@ const ApplicationViews = () => {
       <Route path="/brief/create">
         <NewBriefForm />
       </Route>
-      <Route path="/account">
+      <Route exact path="/account/:userId(\d+)">
         <Account />
       </Route>
       <Route path="/contact">

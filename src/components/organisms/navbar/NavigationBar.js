@@ -12,8 +12,9 @@ import "./NavigationBar.css";
 import logo from "./logo.png"
 import { useHistory } from "react-router-dom";
 
-const NavigationBar = () => {
+const NavigationBar = ({userId}) => {
   const history = useHistory();
+
   return (
     <Navbar>
       <Container>
@@ -34,7 +35,7 @@ const NavigationBar = () => {
           <Nav className="me-auto">
             <Nav.Link href="/dashboard">Home</Nav.Link>
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+              <NavDropdown.Item href={`/account/${userId}`}>Account</NavDropdown.Item>
               <NavDropdown.Item href="/contact">Feedback</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
