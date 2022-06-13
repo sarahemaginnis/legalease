@@ -9,6 +9,7 @@ import Dashboard from "./components/pages/dashboard/Dashboard";
 import Landing from "./components/pages/landing/Landing";
 import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
+import Terms from "./components/pages/Terms/Terms";
 
 const ApplicationViews = () => {
   return (
@@ -39,6 +40,9 @@ const ApplicationViews = () => {
       </Route>
       <Route path="/about">
         <About />
+      </Route>
+      <Route path="/terms">
+        <Terms />
       </Route>
     </div>
   );
