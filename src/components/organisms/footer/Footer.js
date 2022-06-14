@@ -16,7 +16,7 @@ const Footer = () => {
                 <Link className="footer__link" to="/help">Help</Link>
             </li>
             <li className="footer__item-active">
-                <Link className="footer__link" to="/privacy">Privacy</Link>
+                <Link className="footer__link" to="/terms">Privacy</Link>
             </li>
             <li className="footer__item-active">
                 <Link className="footer__link" to="/terms">Terms</Link>
