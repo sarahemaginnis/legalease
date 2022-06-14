@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputDate = ({ label, onChange }) => {
+const InputDate = ({ label, onChange, value }) => {
   return (
     <fieldset>
       <div className="form-group">
@@ -9,6 +9,7 @@ const InputDate = ({ label, onChange }) => {
           type="date"
           className="form-control"
           onChange={(event) => onChange(event.target.value)}
+          value={value}
         />
       </div>
     </fieldset>
