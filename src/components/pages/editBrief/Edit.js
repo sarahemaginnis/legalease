@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import "./Edit.css";
 import ClassDropDown from "../../atoms/dropDownComponent/ClassDropDown";
 import PartyDropDown from "../../atoms/dropDownComponent/PartyDropDown";
 import SubjectDropDown from "../../atoms/dropDownComponent/SubjectsDropDown";
 import InputDate from "../../atoms/inputTypeComponent/InputDate";
 import InputText from "../../atoms/inputTypeComponent/InputText";
 import TextArea from "../../atoms/inputTypeComponent/TextArea";
-import { Container, Row, Col } from "react-bootstrap";
 
-const NewBriefForm = () => {
-  const [brief, updateBrief] = useState({
-    //update with default fields
-  }); //do I still need this?
-
+const Edit = () => {
+  const { briefId } = useParams();
   const [partyARole, updatePartyARole] = useState(1);
   const [partyBRole, updatePartyBRole] = useState(1);
   const [subjectName, updateSubject] = useState(1);
@@ -43,6 +41,36 @@ const NewBriefForm = () => {
   const [parties, syncParties] = useState([]); //State variable for array of parties
 
   const history = useHistory();
+  //Fetch brief
+  useEffect(() => {
+    fetch(`http://localhost:8088/briefs/${briefId}`)
+      .then((res) => res.json())
+      .then((brief) => {
+          updatePartyARole(brief.partyOneRole)
+          updatePartyBRole(brief.partyTwoRole)
+          updateSubject(brief.classId)
+          updateClass(brief.casebook)
+          updatePageNumbers(brief.pageNumbers)
+          updateBriefName(brief.name)
+          updateCourt(brief.court)
+          updateDateofDecision(brief.decisionDate)
+          updateCitation(brief.citation)
+          updatePartyOneName(brief.partyOneName)
+          updatePartyTwoName(brief.partyTwoName)
+          updateCauseOfAction(brief.causeOfAction)
+          updateProceduralDisposition(brief.proceduralDisposition)
+          updateFacts(brief.facts)
+          updateProceduralHistory(brief.proceduralHistory)
+          updateIssuesFact(brief.issuesFact)
+          updateIssuesLaw(brief.issuesLaw)
+          updateHolding(brief.holding)
+          updateRules(brief.rules)
+          updateRationale(brief.rationale)
+          updateConcurringDissentingOpinions(brief.concurringDissentingOpinions)
+          updateNotes(brief.classNote)
+          updateClassDate(brief.classDate)
+      });
+  } , []);
 
   // Fetch all subjects
   useEffect(() => {
@@ -65,10 +93,12 @@ const NewBriefForm = () => {
       .then(syncParties);
   }, []);
 
-  const saveBrief = (event) => {
-    event.preventDefault();
-    const newBrief = {
+  const briefUpdateButton = (evt) => {
+    evt.preventDefault();
+    //Construct a new object to replace the existing one in the API
+    const updatedBrief = {
       creatorId: parseInt(localStorage.getItem("legalease_user")),
+      id: briefId,
       classId: subjectName,
       casebook: className,
       pageNumbers: pageNumbers,
@@ -93,25 +123,27 @@ const NewBriefForm = () => {
       classDate: classDate,
       classNote: notes,
     };
-
-    const fetchOption = {
-      method: "POST",
+    //Perform the PUT HTTP request to replace the resource
+    fetch(`http://localhost:8088/briefs/${briefId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newBrief),
-    };
-
-    return fetch("http://localhost:8088/briefs", fetchOption).then(() => {
-      history.push("/briefs");
+      body: JSON.stringify(updatedBrief),
+    }).then(() => {
+      history.push(`/brief/${briefId}`);
     });
   };
 
   return (
     <form className="briefForm">
-      <h2 className="briefForm__title">New Brief</h2>
-      <button className="btn__btn-primary" onClick={saveBrief}>
-        Save
+      <h2 className="briefForm__title">Edit Brief</h2>
+      <button
+        type="submit"
+        className="btn__btn-primary"
+        onClick={briefUpdateButton}
+      >
+        Update Brief
       </button>
       <h3 className="briefForm__classInformation">Class Information:</h3>
       <Container>
@@ -139,6 +171,7 @@ const NewBriefForm = () => {
               label={"Page Numbers"}
               onChange={updatePageNumbers}
               placeholder={"e.g. 1-5"}
+              value={pageNumbers}
             />
           </Col>
         </Row>
@@ -151,6 +184,7 @@ const NewBriefForm = () => {
               label={"Brief Name"}
               onChange={updateBriefName}
               placeholder={"e.g. Marbury v. Madison"}
+              value={briefName}
             />
           </Col>
           <Col>
@@ -158,6 +192,7 @@ const NewBriefForm = () => {
               label={"Court"}
               onChange={updateCourt}
               placeholder={"e.g. Supreme Court"}
+              value={courtName}
             />
           </Col>
         </Row>
@@ -167,6 +202,7 @@ const NewBriefForm = () => {
               label={"Date of Decision"}
               onChange={updateDateofDecision}
               placeholder={"e.g. 2003 or Dec. 2, 2003"}
+              value={dateOfDecision}
             />
           </Col>
           <Col>
@@ -176,6 +212,7 @@ const NewBriefForm = () => {
               placeholder={
                 "e.g. United States v. Banks, 540 U.S. 31, 124 S. Ct. 521 (U.S. Dec. 2, 2003)"
               }
+              value={citation}
             />
           </Col>
         </Row>
@@ -196,6 +233,7 @@ const NewBriefForm = () => {
               label={"Party One Name"}
               onChange={updatePartyOneName}
               placeholder={""}
+              value={partyOneName}
             />
           </Col>
         </Row>
@@ -213,6 +251,7 @@ const NewBriefForm = () => {
               label={"Party Two Name"}
               onChange={updatePartyTwoName}
               placeholder={""}
+              value={partyTwoName}
             />
           </Col>
         </Row>
@@ -221,7 +260,7 @@ const NewBriefForm = () => {
       <Container>
         <Row>
           <Col>
-            <TextArea label={"Facts"} onChange={updateFacts} />
+            <TextArea label={"Facts"} onChange={updateFacts} value={facts} />
           </Col>
         </Row>
       </Container>
@@ -233,6 +272,7 @@ const NewBriefForm = () => {
               label={"Cause of Action"}
               onChange={updateCauseOfAction}
               placeholder={"e.g. Negligence"}
+              value={causeOfAction}
             />
           </Col>
         </Row>
@@ -244,6 +284,7 @@ const NewBriefForm = () => {
             <TextArea
               label={"Procedural History"}
               onChange={updateProceduralHistory}
+              value={proceduralHistory}
             />
           </Col>
         </Row>
@@ -252,10 +293,10 @@ const NewBriefForm = () => {
       <Container>
         <Row>
           <Col>
-            <TextArea label={"Issues of Fact"} onChange={updateIssuesFact} />
+            <TextArea label={"Issues of Fact"} onChange={updateIssuesFact} value={issuesFact} />
           </Col>
           <Col>
-            <TextArea label={"Issues of Law"} onChange={updateIssuesLaw} />
+            <TextArea label={"Issues of Law"} onChange={updateIssuesLaw} value={issuesLaw} />
           </Col>
         </Row>
       </Container>
@@ -263,7 +304,7 @@ const NewBriefForm = () => {
       <Container>
         <Row>
           <Col>
-            <TextArea label={"Holding"} onChange={updateHolding} />
+            <TextArea label={"Holding"} onChange={updateHolding} value={holding} />
           </Col>
         </Row>
       </Container>
@@ -276,6 +317,7 @@ const NewBriefForm = () => {
             <TextArea
               label={"Synopsis of Rule of Law & Legal Principles"}
               onChange={updateRules}
+              value={rules}
             />
           </Col>
         </Row>
@@ -284,7 +326,7 @@ const NewBriefForm = () => {
       <Container>
         <Row>
           <Col>
-            <TextArea label={"Rationale"} onChange={updateRationale} />
+            <TextArea label={"Rationale"} onChange={updateRationale} value={rationale} />
           </Col>
         </Row>
       </Container>
@@ -298,6 +340,7 @@ const NewBriefForm = () => {
               label={"Procedural Disposition"}
               onChange={updateProceduralDisposition}
               placeholder={""}
+              value={proceduralDisposition}
             />
           </Col>
         </Row>
@@ -311,6 +354,7 @@ const NewBriefForm = () => {
             <TextArea
               label={"Concurring & Dissenting Opinion(s)"}
               onChange={updateConcurringDissentingOpinions}
+              value={concurringDissentingOpinions}
             />
           </Col>
         </Row>
@@ -319,12 +363,12 @@ const NewBriefForm = () => {
       <Container>
         <Row>
           <Col sm={2}>
-            <InputDate label={"Date"} onChange={updateClassDate} />
+            <InputDate label={"Date"} onChange={updateClassDate} value={classDate} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextArea label={"Notes"} onChange={updateNotes} />
+            <TextArea label={"Notes"} onChange={updateNotes} value={notes} />
           </Col>
         </Row>
       </Container>
@@ -332,4 +376,4 @@ const NewBriefForm = () => {
   );
 };
 
-export default NewBriefForm;
+export default Edit;

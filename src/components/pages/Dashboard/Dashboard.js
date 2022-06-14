@@ -11,7 +11,8 @@ const Dashboard = () => {
   const user = parseInt(localStorage.getItem("legalease_user"));
 
   //Fetch all briefs
-  useEffect(() => { //need to update useEffect to get all briefs after deleting and rendering teh new state
+  useEffect(() => {
+    //need to update useEffect to get all briefs after deleting and rendering teh new state
     fetch(`http://localhost:8088/briefs?_expand=class`)
       .then((res) => res.json())
       .then((data) => {
@@ -29,18 +30,23 @@ const Dashboard = () => {
   //need to map through user's briefs and then pass in props: cardTitle, cardSubtitle, cardTextIssue, cardTextHolding
 
   const deleteBrief = (e, id) => {
-      e.stopPropagation()
-      fetch(`http://localhost:8088/briefs/${id}`, {
-          method: "DELETE"
-      })
+    e.stopPropagation();
+    fetch(`http://localhost:8088/briefs/${id}`, {
+      method: "DELETE",
+    })
       .then(() => {
-        return fetch(`http://localhost:8088/briefs?_expand=class`)
+        return fetch(`http://localhost:8088/briefs?_expand=class`);
       })
       .then((res) => res.json())
       .then((data) => {
-          syncBriefs(data);
-      })
-  }
+        syncBriefs(data);
+      });
+  };
+
+  const editBrief = (e, id) => {
+    e.stopPropagation();
+    return history.push(`brief/edit/${id}`);
+  };
 
   return (
     <div>
@@ -60,10 +66,16 @@ const Dashboard = () => {
             const subjectName = subjects.find((subject) => {
               return subject.id === brief.class.subjectId;
             });
-            const onClick = () => { history.push(`/brief/${brief.id}`)}
+            const onClick = () => {
+              history.push(`/brief/${brief.id}`);
+            };
             return (
               <Col key={`brief__${brief.id}`}>
-                <Card className="card__dashboard-main" onClick={onClick} style={{ cursor: "pointer" }}>
+                <Card
+                  className="card__dashboard-main"
+                  onClick={onClick}
+                  style={{ cursor: "pointer" }}
+                >
                   <Card.Body className="card__dashboard-body">
                     <Card.Title>{brief.name}</Card.Title>
                     <Card.Subtitle>
@@ -77,8 +89,20 @@ const Dashboard = () => {
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <button onClick={(e) => {deleteBrief(e, brief.id)}}>Delete</button>
+                    <button
+                      onClick={(e) => {
+                        editBrief(e, brief.id);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        deleteBrief(e, brief.id);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </Card.Footer>
                 </Card>
               </Col>

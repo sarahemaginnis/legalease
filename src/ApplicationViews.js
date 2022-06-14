@@ -6,6 +6,7 @@ import Account from "./components/pages/account/Account";
 import Brief from "./components/pages/brief/Brief";
 import Contact from "./components/pages/contact/Contact";
 import Dashboard from "./components/pages/dashboard/Dashboard";
+import Edit from "./components/pages/editBrief/Edit";
 import Landing from "./components/pages/landing/Landing";
 import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
@@ -28,6 +29,9 @@ const ApplicationViews = () => {
       </Route>
       <Route exact path="/brief/:briefId(\d+)">
         <Brief />
+      </Route>
+      <Route exact path="/brief/edit/:briefId(\d+)">
+        <Edit />
       </Route>
       <Route path="/brief/create">
         <NewBriefForm />
