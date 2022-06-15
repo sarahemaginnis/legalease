@@ -1,8 +1,11 @@
 .image__signup {
     max-width: 100%;
     background-color: #b27a61;
+    border-radius: 0 15px 15px 0; 
 }
 
 main.signup {
     background-color: #e9e7da;
+    height: 100%;
+    border-radius: 15px 0 0 15px;
 }

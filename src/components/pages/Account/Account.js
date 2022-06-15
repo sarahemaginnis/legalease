@@ -8,7 +8,7 @@ import InputText from "../../atoms/inputTypeComponent/InputText";
 const Account = () => {
   const [name, updateName] = useState("");
   const [email, updateEmail] = useState("");
-  const [user, updateUser] = useState({name: "", email: ""}); //State variable for current user object
+  const [user, updateUser] = useState({ name: "", email: "" }); //State variable for current user object
   const { userId } = useParams(); //Variable storing the route parameter
 
   const history = useHistory();
@@ -32,7 +32,7 @@ const Account = () => {
 
   //Function to invoke when the update button is clicked
   const accountUpdateButton = (evt) => {
-      evt.preventDefault()
+    evt.preventDefault();
     //Construct a new object to replace the existing one in the API
     const updatedAccount = {
       id: user.id,
@@ -48,7 +48,7 @@ const Account = () => {
       },
       body: JSON.stringify(updatedAccount),
     }).then(() => {
-        alert("Account update successful!")
+      alert("Account update successful!");
       history.push("/dashboard");
     });
   };
@@ -57,35 +57,43 @@ const Account = () => {
     <>
       <div className="card__acount">
         <Container>
-          <Row>
+          <Row className="account__row gx-0">
             <Col sm={4}>
               <main className="account">
                 <section>
                   <form className="form__acount">
-                    <h1 className="h3 mb-3 font-weight-normal">
-                      Account Information
-                    </h1>
-                    <InputText
-                      label={"Name"}
-                      onChange={updateName}
-                      placeholder={user.name}
-                      value={name}
-                    />
-                    <InputText
-                      label={"Email"}
-                      onChange={updateEmail}
-                      placeholder={user.email}
-                      value={email}
-                    />
-                    <fieldset>
-                      <button
-                        type="submit"
-                        className="btn__btn-primary"
-                        onClick={accountUpdateButton}
-                      >
-                        Update Account
-                      </button>
-                    </fieldset>
+                    <div className="form__account__div">
+                      <h1 className="h3 mb-3 font-weight-normal">
+                        Account Information
+                      </h1>
+                    </div>
+                    <div className="form__account__div">
+                      <InputText
+                        label={"Name"}
+                        onChange={updateName}
+                        placeholder={user.name}
+                        value={name}
+                      />
+                    </div>
+                    <div className="form__account__div">
+                      <InputText
+                        label={"Email"}
+                        onChange={updateEmail}
+                        placeholder={user.email}
+                        value={email}
+                      />
+                    </div>
+                    <div className="form__account__div">
+                      <fieldset>
+                        <button
+                          type="submit"
+                          className="btn__btn-primary"
+                          onClick={accountUpdateButton}
+                        >
+                          Update Account
+                        </button>
+                      </fieldset>
+                    </div>
                   </form>
                 </section>
               </main>

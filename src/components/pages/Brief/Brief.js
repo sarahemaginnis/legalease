@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { Button } from "bootstrap";
 import "./Brief.css";
@@ -10,6 +10,11 @@ const Brief = () => {
   const [subjects, syncSubjects] = useState([]); //State variable for array of subjects
   const [parties, syncParties] = useState([]); //State variable for array of parties
   const [classes, syncClasses] = useState([]); //State variable for array of classes
+  const [subjectName, setSubjectName] = useState("")
+  // const [partyOneRoleName, setPartyOneRoleName] = useState("")
+  // const [partyTwoRoleName, setPartyTwoRoleName] = useState("")
+
+  const history = useHistory();
 
   useEffect(() => {
     //This function runs when the value of briefId changes
@@ -42,9 +47,17 @@ const Brief = () => {
       });
   }, []);
 
-  const subjectName = subjects.find((subject) => {
-    return subject.id === brief.class.subjectId;
-  });
+  useEffect(() => {
+    if (subjects.length && brief.class) {
+      setSubjectName(subjects.find((subject) => {
+        return subject.id === brief.class.subjectId
+      }))
+    }
+  }, [brief, subjects])
+
+  // const subjectName = subjects.find((subject) => {
+  //   return subject.id === brief.class.subjectId;
+  // });
 
   const partyOneRoleName = parties.find((party) => {
     return party.id === brief.partyOneRole;
@@ -54,7 +67,12 @@ const Brief = () => {
     return party.id === brief.partyTwoRole;
   });
 
-  return (
+  const editBrief = (e, id) => {
+    e.stopPropagation();
+    return history.push(`/brief/edit/${id}`);
+  };
+
+  if (subjects.length && classes.length && parties.length) return (
     <Container className="brief">
       <Row>
         <Col>
@@ -72,6 +90,13 @@ const Brief = () => {
         </Col>
         <Col>
           <p>Placeholder for edit button</p>
+          <button
+            onClick={(e) => {
+              editBrief(e, briefId);
+            }}
+          >
+            Edit
+          </button>
         </Col>
       </Row>
       <Container>
@@ -115,7 +140,9 @@ const Brief = () => {
       <p>{brief.facts ? brief.facts : ""}</p>
       <h3>{brief.holding ? "Holding:" : ""}</h3>
       <p>{brief.holding ? brief.holding : ""}</p>
-      <h3>{brief.rules ? "Synopsis of Rule of Law & Legal Principles:" : ""}</h3>
+      <h3>
+        {brief.rules ? "Synopsis of Rule of Law & Legal Principles:" : ""}
+      </h3>
       <p>{brief.rules ? brief.rules : ""}</p>
       <h3>{brief.rationale ? "Rationale:" : ""}</h3>
       <p>{brief.rationale ? brief.rationale : ""}</p>
@@ -143,7 +170,8 @@ const Brief = () => {
           : ""}
       </p>
     </Container>
-  );
+  )
+  return <></>;
 };
 
 export default Brief;
