@@ -17,7 +17,7 @@ const NavigationBar = ({userId}) => {
 
   return (
     <Navbar>
-      <Container>
+      <Container className="navbar__border">
         <Navbar.Brand href="/dashboard">
           <img src={logo} width="30" height="30" alt="Sarah Maginnis Productivity" />
           </Navbar.Brand>

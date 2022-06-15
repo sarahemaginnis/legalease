@@ -39,7 +39,7 @@ const Contact = () => {
     <>
       <div className="card__contact">
         <Container>
-          <Row>
+          <Row className="card__contact__row gx-0">
             <Col sm={4}>
               <main className="contact">
                 <section>

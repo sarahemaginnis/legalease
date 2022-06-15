@@ -82,10 +82,10 @@ const Dashboard = () => {
                       {subjectName ? subjectName.name : ""}
                     </Card.Subtitle>
                     <Card.Text className="card__dashboard-text">
-                      {brief.issuesLaw}
+                      Issue: {brief.issuesLaw}
                     </Card.Text>
                     <Card.Text className="card__dashboard-text">
-                      {brief.holding}
+                      Holding: {brief.holding}
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>

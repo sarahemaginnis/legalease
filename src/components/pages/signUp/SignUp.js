@@ -49,7 +49,7 @@ const SignUp = (props) => {
   return (
     <div className="card__signup">
       <Container>
-        <Row>
+        <Row className="card__signup__row gx-0">
           <Col sm={4}>
             <main style={{ textAlign: "center" }} className="signup">
               <dialog className="dialog dialog--password" ref={conflictDialog}>

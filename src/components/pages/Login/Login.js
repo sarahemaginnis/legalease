@@ -31,7 +31,7 @@ const Login = () => {
     return (
         <div className="card__login">
         <Container>
-          <Row>
+          <Row className="card__login__row gx-0">
             <Col sm={4}>
               <main style={{ textAlign: "center" }} className="login">
                 <dialog className="dialog dialog--auth" ref={existDialog}>
