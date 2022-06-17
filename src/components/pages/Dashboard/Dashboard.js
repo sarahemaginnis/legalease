@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, Container, Row, Col, button, CardGroup } from "react-bootstrap";
 import "./Dashboard.css";
-import { Link } from "react-router-dom";
+import edit from "./edit.png";
+import trash from "./trash.png";
+import add from "./add.png";
 
 const Dashboard = () => {
   const [briefs, syncBriefs] = useState([]); //State variable for array of briefs
@@ -50,14 +52,22 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>The Dashboard Page</h1>
       <h1>Briefs</h1>
       <Container>
         <Row xs={1} md={3} className="g-3">
           <Col>
             <Card className="card__dashboard-main">
               <Card.Body className="card__dashboard-body">
-                <button onClick={() => history.push("/brief/create")}>+</button>
+                <button
+                  onClick={() => history.push("/brief/create")}
+                  className="dashboard__button__add"
+                >
+                  <img
+                    src={add}
+                    alt="addition symbol"
+                    className="dashboard__icon__add"
+                  />
+                </button>
                 <Card.Subtitle>Create a New Brief</Card.Subtitle>
               </Card.Body>
             </Card>
@@ -93,15 +103,25 @@ const Dashboard = () => {
                       onClick={(e) => {
                         editBrief(e, brief.id);
                       }}
+                      className="dashboard__button"
                     >
-                      Edit
+                      <img
+                        src={edit}
+                        alt="pencil icon"
+                        className="dashboard__icon"
+                      />
                     </button>
                     <button
                       onClick={(e) => {
                         deleteBrief(e, brief.id);
                       }}
+                      className="dashboard__button"
                     >
-                      Delete
+                      <img
+                        src={trash}
+                        alt="trash icon"
+                        className="dashboard__icon"
+                      />
                     </button>
                   </Card.Footer>
                 </Card>

@@ -9,18 +9,27 @@ import {
   Button,
 } from "react-bootstrap";
 import "./NavigationBar.css";
-import logo from "./logo.png"
+import logo from "./logo.png";
+import account from "./account.png";
 import { useHistory } from "react-router-dom";
 
-const NavigationBar = ({userId}) => {
+const NavigationBar = ({ userId }) => {
   const history = useHistory();
+
+  const accountIcon = (
+    <img src={account} alt="person icon" className="navbar__icon" />
+  );
 
   return (
     <Navbar>
       <Container className="navbar__border">
         <Navbar.Brand href="/dashboard">
-          <img src={logo} width="30" height="30" alt="Sarah Maginnis Productivity" />
-          </Navbar.Brand>
+          <img
+            src={logo}
+            alt="Sarah Maginnis Productivity"
+            className="navbar__logo"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Form className="d-flex">
           <FormControl
@@ -34,14 +43,16 @@ const NavigationBar = ({userId}) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/dashboard">Home</Nav.Link>
-            <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href={`/account/${userId}`}>Account</NavDropdown.Item>
+            <NavDropdown title={accountIcon} id="basic-nav-dropdown">
+              <NavDropdown.Item href={`/account/${userId}`}>
+                Account
+              </NavDropdown.Item>
               <NavDropdown.Item href="/contact">Feedback</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#"
                 onClick={() => {
-                  localStorage.removeItem("legalease_user") 
+                  localStorage.removeItem("legalease_user");
                   history.push("/");
                 }}
               >

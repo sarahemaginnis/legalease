@@ -5,3 +5,21 @@
 .brief__class {
     text-align: center;
 }
+
+.brief__button {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.brief__icon {
+    width: 30px;
+}
+
+.brief__icon__download {
+    width: 30px;
+    display: inline;
+}
+
+.brief__column__download {
+    text-align: right;
+}

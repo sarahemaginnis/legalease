@@ -11,3 +11,22 @@
 .card__dashboard-text {
     text-align: left;
 }
+
+.dashboard__icon {
+    width: 30px;
+}
+
+.dashboard__button {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.dashboard__icon__add {
+    width: 50px;
+}
+
+.dashboard__button__add {
+    border: none !important;
+    background-color: transparent !important;
+    margin: 30px;
+}

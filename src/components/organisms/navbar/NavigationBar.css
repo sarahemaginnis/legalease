@@ -12,3 +12,11 @@
 .navbar__border {
     border-bottom: 1px solid black;
 }
+
+.navbar__icon {
+    width: 30px;   
+}
+
+.navbar__logo {
+    width: 50px;
+}
