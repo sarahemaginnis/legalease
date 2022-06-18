@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Card, Container, Row, Col, button, CardGroup } from "react-bootstrap";
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  button,
+  CardGroup,
+  Button,
+} from "react-bootstrap";
 import "./Dashboard.css";
 import edit from "./edit.png";
 import trash from "./trash.png";
 import add from "./add.png";
+import ModalDeleteBrief from "../../atoms/modal/ModalDeleteBrief";
 
 const Dashboard = () => {
   const [briefs, syncBriefs] = useState([]); //State variable for array of briefs
   const [subjects, syncSubjects] = useState([]); //State variable for array of subjects
+  const [modalShow, setModalShow] = React.useState(0); //State variable for delete modal
   const history = useHistory();
   const user = parseInt(localStorage.getItem("legalease_user"));
 
@@ -31,8 +41,7 @@ const Dashboard = () => {
   }, []);
   //need to map through user's briefs and then pass in props: cardTitle, cardSubtitle, cardTextIssue, cardTextHolding
 
-  const deleteBrief = (e, id) => {
-    e.stopPropagation();
+  const deleteBrief = (id) => {
     fetch(`http://localhost:8088/briefs/${id}`, {
       method: "DELETE",
     })
@@ -42,12 +51,27 @@ const Dashboard = () => {
       .then((res) => res.json())
       .then((data) => {
         syncBriefs(data);
+        setModalShow(0);
       });
   };
 
   const editBrief = (e, id) => {
     e.stopPropagation();
     return history.push(`brief/edit/${id}`);
+  };
+
+  const DeleteModal = () => {
+    const brief = briefs.find((briefObject) => briefObject.id === modalShow);
+    return (
+      <>
+        <ModalDeleteBrief
+          brief={brief}
+          deleteFunction={deleteBrief}
+          show={!!modalShow}
+          onHide={() => setModalShow(0)}
+        />
+      </>
+    );
   };
 
   return (
@@ -113,7 +137,8 @@ const Dashboard = () => {
                     </button>
                     <button
                       onClick={(e) => {
-                        deleteBrief(e, brief.id);
+                        e.stopPropagation();
+                        setModalShow(brief.id);
                       }}
                       className="dashboard__button"
                     >
@@ -130,6 +155,7 @@ const Dashboard = () => {
           })}
         </Row>
       </Container>
+      {DeleteModal()}
     </div>
   );
 };
