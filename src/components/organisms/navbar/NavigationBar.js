@@ -52,7 +52,7 @@ const NavigationBar = ({ userId }) => {
                 href="#"
                 onClick={() => {
                   localStorage.removeItem("legalease_user");
-                  history.push("/");
+                  history.push("/dashboard");
                 }}
               >
                 Logout

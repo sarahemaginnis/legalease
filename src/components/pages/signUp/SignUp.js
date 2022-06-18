@@ -3,9 +3,11 @@ import { useHistory, Link } from "react-router-dom";
 import "./SignUp.css";
 import { Container, Row, Col } from "react-bootstrap";
 import signUpDesk from "./sign-up-desk.png";
+import ModalUserVerified from "../../atoms/modal/ModalUserVerified";
 
 const SignUp = (props) => {
   const [user, setUser] = useState({});
+  const [modalShow, setModalShow] = React.useState(0); //State variable for user verification modal
   const conflictDialog = useRef();
 
   const history = useHistory();
@@ -31,11 +33,11 @@ const SignUp = (props) => {
           .then((createdUser) => {
             if (createdUser.hasOwnProperty("id")) {
               localStorage.setItem("legalease_user", createdUser.id);
-              history.push("/");
+              history.push("/dashboard");
             }
           });
       } else {
-        conflictDialog.current.showModal();
+        setModalShow(1);
       }
     });
   };
@@ -46,22 +48,23 @@ const SignUp = (props) => {
     setUser(copy);
   };
 
+  const VerificationModal = () => {
+    return (
+      <>
+      <ModalUserVerified
+       show={!!modalShow}
+       onHide={() => setModalShow(0)}
+       />
+      </>
+    );
+  };
+
   return (
     <div className="card__signup">
       <Container>
         <Row className="card__signup__row gx-0">
           <Col sm={4}>
             <main style={{ textAlign: "center" }} className="signup">
-              <dialog className="dialog dialog--password" ref={conflictDialog}>
-                <div>Account with that email address already exists</div>
-                <button
-                  className="button--close"
-                  onClick={(e) => conflictDialog.current.close()}
-                >
-                  Close
-                </button>
-              </dialog>
-
               <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Sign Up</h1>
                 <fieldset>
@@ -103,6 +106,7 @@ const SignUp = (props) => {
           </Col>
         </Row>
       </Container>
+      {VerificationModal()}
     </div>
   );
 };
