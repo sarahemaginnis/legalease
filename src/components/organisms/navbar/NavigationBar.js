@@ -6,7 +6,6 @@ import {
   Navbar,
   NavDropdown,
   Form,
-  Button,
 } from "react-bootstrap";
 import "./NavigationBar.css";
 import logo from "./logo.png";
@@ -38,7 +37,7 @@ const NavigationBar = ({ userId }) => {
             className="me-2"
             aria-label="Search"
           />
-          <Button variant="outline-success">Search</Button>
+          <button className="btn__btn-primary">Search</button>
         </Form>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
