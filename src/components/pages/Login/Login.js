@@ -6,7 +6,7 @@ import { useHistory, Link } from "react-router-dom";
 import React from "react";
 import ModalUserVerification from "../../atoms/modal/ModalUserVerification";
 
-const Login = () => {
+const Login = ({setUserId}) => {
   const [email, set] = useState("");
   const [modalShow, setModalShow] = React.useState(0); //State variable for user verification modal
   const history = useHistory();
@@ -22,6 +22,7 @@ const Login = () => {
     existingUserCheck().then((exists) => {
       if (exists) {
         localStorage.setItem("legalease_user", exists.id);
+        setUserId(exists.id)
         history.push("/dashboard");
       } else {
         setModalShow(1);
