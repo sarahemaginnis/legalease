@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "./ModalDeleteBrief.css";
 
 const ModalDeleteBrief = ({ brief, deleteFunction, ...props }) => {
