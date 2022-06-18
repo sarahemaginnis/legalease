@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import NewBriefForm from "./components/organisms/brief/BriefForm";
 import About from "./components/pages/about/About";
 import Account from "./components/pages/account/Account";
@@ -12,33 +12,43 @@ import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
 import Terms from "./components/pages/Terms/Terms";
 
-const ApplicationViews = () => {
+const PrivateRoute = ({path, children, userId}) => {
+  if (!userId) {
+    return(<Redirect to="/landing" />)
+  } else {
+    return(
+      <Route path={path}>{children}</Route>
+    )
+  }
+}
+
+const ApplicationViews = ({userId, setUserId}) => {
   return (
     <div>
       <Route path="/landing">
         <Landing />
       </Route>
       <Route path="/login">
-        <Login />
+        <Login setUserId={setUserId} />
       </Route>
       <Route path="/signup">
         <SignUp />
       </Route>
-      <Route path="/dashboard">
+      <PrivateRoute userId={userId} path="/dashboard">
         <Dashboard />
-      </Route>
-      <Route exact path="/brief/:briefId(\d+)">
+      </PrivateRoute>
+      <PrivateRoute userId={userId} exact path="/brief/:briefId(\d+)">
         <Brief />
-      </Route>
-      <Route exact path="/brief/edit/:briefId(\d+)">
+      </PrivateRoute>
+      <PrivateRoute userId={userId} exact path="/brief/edit/:briefId(\d+)">
         <Edit />
-      </Route>
-      <Route path="/brief/create">
+      </PrivateRoute>
+      <PrivateRoute userId={userId} path="/brief/create">
         <NewBriefForm />
-      </Route>
-      <Route exact path="/account/:userId(\d+)">
+      </PrivateRoute>
+      <PrivateRoute userId={userId} exact path="/account/:userId(\d+)">
         <Account />
-      </Route>
+      </PrivateRoute>
       <Route path="/contact">
         <Contact />
       </Route>

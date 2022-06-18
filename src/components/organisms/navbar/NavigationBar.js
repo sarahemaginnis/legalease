@@ -12,7 +12,7 @@ import logo from "./logo.png";
 import account from "./account.png";
 import { useHistory } from "react-router-dom";
 
-const NavigationBar = ({ userId }) => {
+const NavigationBar = ({ userId, setUserId }) => {
   const history = useHistory();
 
   const accountIcon = (
@@ -22,7 +22,7 @@ const NavigationBar = ({ userId }) => {
   return (
     <Navbar>
       <Container className="navbar__border">
-        <Navbar.Brand href="/dashboard">
+        <Navbar.Brand onClick={() => {history.push("/dashboard")}}>
           <img
             src={logo}
             alt="Sarah Maginnis Productivity"
@@ -41,17 +41,18 @@ const NavigationBar = ({ userId }) => {
         </Form>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/dashboard">Home</Nav.Link>
+            <Nav.Link onClick={() => {history.push("/dashboard")}}>Home</Nav.Link>
             <NavDropdown title={accountIcon} id="basic-nav-dropdown">
-              <NavDropdown.Item href={`/account/${userId}`}>
+              <NavDropdown.Item onClick={() => {history.push(`/account/${userId}`)}}>
                 Account
               </NavDropdown.Item>
-              <NavDropdown.Item href="/contact">Feedback</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => {history.push("/contact")}}>Feedback</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#"
                 onClick={() => {
                   localStorage.removeItem("legalease_user");
+                  setUserId(null)
                   history.push("/dashboard");
                 }}
               >
