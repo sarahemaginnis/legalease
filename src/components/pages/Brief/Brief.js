@@ -76,109 +76,162 @@ const Brief = () => {
     return history.push(`/brief/edit/${id}`);
   };
 
+  // const ExportToDoc = (element, filename = "") => {
+  //   let header =
+  //     "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+
+  //   let footer = "</body></html>";
+
+  //   let html = header + document.getElementById(element).innerHTML + footer;
+
+  //   let blob = new Blob(["\ufeff", html], {
+  //     type: "application/msword",
+  //   });
+
+  //   // Specify link url
+  //   let url =
+  //     "data:application/vnd.ms-word;charset=utf-8," + encodeURIComponent(html);
+
+  //   // Specify file name
+  //   filename = filename ? filename + ".docx" : "document.docx";
+
+  //   // Create download link element
+  //   let downloadLink = document.createElement("a");
+
+  //   document.body.appendChild(downloadLink);
+
+  //   if (navigator.msSaveOrOpenBlob) {
+  //     navigator.msSaveOrOpenBlob(blob, filename);
+  //   } else {
+  //     // Create a link to the file
+  //     downloadLink.href = url;
+
+  //     // Setting the file name
+  //     downloadLink.download = filename;
+
+  //     //triggering the function
+  //     downloadLink.click();
+  //   }
+
+  //   document.body.removeChild(downloadLink);
+  // };
+
   if (subjects.length && classes.length && parties.length)
     return (
-      <Container className="brief">
-        <Row>
-          <Col>
-            <h2 className="brief__name">{brief.name}</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p className="brief__class">
-              {subjectName ? subjectName.name : ""}
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="brief__column__download">
-            <button className="brief__button">
-              <img src={download} alt="download icon" className="brief__icon__download" />
-            </button>
-          </Col>
-          <Col>
-            <button
-              onClick={(e) => {
-                editBrief(e, briefId);
-              }}
-              className="brief__button"
-            >
-              <img src={edit} alt="pencil icon" className="brief__icon" />
-            </button>
-          </Col>
-        </Row>
-        <Container>
-          <Row>
-            <Col>{brief.casebook ? brief.class.casebook : ""}</Col>
-            <Col>{brief.pageNumbers ? brief.pageNumbers : ""}</Col>
-          </Row>
-        </Container>
-        <Container>
-          <Row>
-            <Col>{brief.court ? brief.court : ""}</Col>
-            <Col>{brief.decisionDate ? brief.decisionDate : ""}</Col>
-            <Col>{brief.citation ? brief.citation : ""}</Col>
-          </Row>
-        </Container>
-        <Container>
+      <div id="exportContent">
+        <Container className="brief">
           <Row>
             <Col>
-              <h3>{brief.classNote ? "Notes:" : ""}</h3>
-            </Col>
-            <Col>
-              <p>{brief.classDate ? brief.classDate : ""}</p>
+              <h2 className="brief__name">{brief.name}</h2>
             </Col>
           </Row>
           <Row>
-            <Col>{brief.classNote ? brief.classNote : ""}</Col>
-          </Row>
-        </Container>
-        <h3>{brief.partyOneName ? "Parties:" : ""}</h3>
-        <Container>
-          <Row>
-            <Col>{partyOneRoleName ? partyOneRoleName.party : ""}</Col>
-            <Col>{brief.partyOneName ? brief.partyOneName : ""}</Col>
+            <Col>
+              <p className="brief__class">
+                {subjectName ? subjectName.name : ""}
+              </p>
+            </Col>
           </Row>
           <Row>
-            <Col>{partyTwoRoleName ? partyTwoRoleName.party : ""}</Col>
-            <Col>{brief.partyTwoName ? brief.partyTwoName : ""}</Col>
+            <Col className="brief__column__download">
+              <button
+                className="brief__button"
+                // onClick={ExportToDoc('exportContent')}
+              >
+                <img
+                  src={download}
+                  alt="download icon"
+                  className="brief__icon__download"
+                />
+              </button>
+            </Col>
+            <Col>
+              <button
+                onClick={(e) => {
+                  editBrief(e, briefId);
+                }}
+                className="brief__button"
+              >
+                <img src={edit} alt="pencil icon" className="brief__icon" />
+              </button>
+            </Col>
           </Row>
+          <Container>
+            <Row>
+              <Col>{brief.casebook ? brief.class.casebook : ""}</Col>
+              <Col>{brief.pageNumbers ? brief.pageNumbers : ""}</Col>
+            </Row>
+          </Container>
+          <Container>
+            <Row>
+              <Col>{brief.court ? brief.court : ""}</Col>
+              <Col>{brief.decisionDate ? brief.decisionDate : ""}</Col>
+              <Col>{brief.citation ? brief.citation : ""}</Col>
+            </Row>
+          </Container>
+          <Container>
+            <Row>
+              <Col>
+                <h3>{brief.classNote ? "Notes:" : ""}</h3>
+              </Col>
+              <Col>
+                <p>{brief.classDate ? brief.classDate : ""}</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col>{brief.classNote ? brief.classNote : ""}</Col>
+            </Row>
+          </Container>
+          <h3>{brief.partyOneName ? "Parties:" : ""}</h3>
+          <Container>
+            <Row>
+              <Col>{partyOneRoleName ? partyOneRoleName.party : ""}</Col>
+              <Col>{brief.partyOneName ? brief.partyOneName : ""}</Col>
+            </Row>
+            <Row>
+              <Col>{partyTwoRoleName ? partyTwoRoleName.party : ""}</Col>
+              <Col>{brief.partyTwoName ? brief.partyTwoName : ""}</Col>
+            </Row>
+          </Container>
+          <h3>{brief.facts ? "Facts:" : ""}</h3>
+          <p>{brief.facts ? brief.facts : ""}</p>
+          <h3>{brief.holding ? "Holding:" : ""}</h3>
+          <p>{brief.holding ? brief.holding : ""}</p>
+          <h3>
+            {brief.rules ? "Synopsis of Rule of Law & Legal Principles:" : ""}
+          </h3>
+          <p>{brief.rules ? brief.rules : ""}</p>
+          <h3>{brief.rationale ? "Rationale:" : ""}</h3>
+          <p>{brief.rationale ? brief.rationale : ""}</p>
+          <h3>{brief.causeOfAction ? "Cause of Action:" : ""}</h3>
+          <p>{brief.causeOfAction ? brief.causeOfAction : ""}</p>
+          <h3>{brief.proceduralHistory ? "Procedural History:" : ""}</h3>
+          <p>{brief.proceduralHistory ? brief.proceduralHistory : ""}</p>
+          <h3>{brief.issuesFact || brief.issuesLaw ? "Issues:" : ""}</h3>
+          <Container>
+            <Row>
+              <Col>{brief.issuesFact ? brief.issuesFact : ""}</Col>
+              <Col>{brief.issuesLaw ? brief.issuesLaw : ""}</Col>
+            </Row>
+          </Container>
+          <h3>
+            {brief.proceduralDisposition ? "Procedural Disposition:" : ""}
+          </h3>
+          <p>
+            {brief.proceduralDisposition ? brief.proceduralDisposition : ""}
+          </p>
+          <h3>
+            {brief.concurringDissentingOpinions
+              ? "Concurring & Dissenting Opinion(s):"
+              : ""}
+          </h3>
+          <p>
+            {brief.concurringDissentingOpinions
+              ? brief.concurringDissentingOpinions
+              : ""}
+          </p>
         </Container>
-        <h3>{brief.facts ? "Facts:" : ""}</h3>
-        <p>{brief.facts ? brief.facts : ""}</p>
-        <h3>{brief.holding ? "Holding:" : ""}</h3>
-        <p>{brief.holding ? brief.holding : ""}</p>
-        <h3>
-          {brief.rules ? "Synopsis of Rule of Law & Legal Principles:" : ""}
-        </h3>
-        <p>{brief.rules ? brief.rules : ""}</p>
-        <h3>{brief.rationale ? "Rationale:" : ""}</h3>
-        <p>{brief.rationale ? brief.rationale : ""}</p>
-        <h3>{brief.causeOfAction ? "Cause of Action:" : ""}</h3>
-        <p>{brief.causeOfAction ? brief.causeOfAction : ""}</p>
-        <h3>{brief.proceduralHistory ? "Procedural History:" : ""}</h3>
-        <p>{brief.proceduralHistory ? brief.proceduralHistory : ""}</p>
-        <h3>{brief.issuesFact || brief.issuesLaw ? "Issues:" : ""}</h3>
-        <Container>
-          <Row>
-            <Col>{brief.issuesFact ? brief.issuesFact : ""}</Col>
-            <Col>{brief.issuesLaw ? brief.issuesLaw : ""}</Col>
-          </Row>
-        </Container>
-        <h3>{brief.proceduralDisposition ? "Procedural Disposition:" : ""}</h3>
-        <p>{brief.proceduralDisposition ? brief.proceduralDisposition : ""}</p>
-        <h3>
-          {brief.concurringDissentingOpinions
-            ? "Concurring & Dissenting Opinion(s):"
-            : ""}
-        </h3>
-        <p>
-          {brief.concurringDissentingOpinions
-            ? brief.concurringDissentingOpinions
-            : ""}
-        </p>
-      </Container>
+      </div>
     );
   return <></>;
 };
