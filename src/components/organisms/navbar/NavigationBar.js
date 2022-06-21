@@ -30,17 +30,8 @@ const NavigationBar = ({ userId, setUserId }) => {
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Form className="d-flex">
-          <FormControl
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
-          />
-          <button className="btn__btn-primary">Search</button>
-        </Form>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             <Nav.Link onClick={() => {history.push("/dashboard")}}>Home</Nav.Link>
             <NavDropdown title={accountIcon} id="basic-nav-dropdown">
               <NavDropdown.Item onClick={() => {history.push(`/account/${userId}`)}}>
