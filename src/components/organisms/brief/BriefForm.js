@@ -103,7 +103,7 @@ const NewBriefForm = () => {
     };
 
     return fetch("http://localhost:8088/briefs", fetchOption).then(() => {
-      history.push("/briefs");
+      history.push("/dashboard");
     });
   };
 
